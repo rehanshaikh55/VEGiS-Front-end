@@ -3,7 +3,7 @@ import {persist,createJSONStorage} from 'zustand/middleware'
 import { mmkvStorage } from './Storage';
 
 interface authStore{
-    user:Record<string,any> | null;
+    user:Record<string,any> |null;
     setUser:(user:any)=>void;
     setCurrentOrder:(order:any)=>void;
     currentOrder:Record<string,any> | null;

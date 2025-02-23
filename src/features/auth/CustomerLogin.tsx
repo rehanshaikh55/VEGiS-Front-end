@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, Animated, Image, Alert} from 'react-native';
+import {View, Text, StyleSheet, Animated, Image, Alert, SafeAreaView, Keyboard} from 'react-native';
 import React, {FC, useEffect, useRef, useState} from 'react';
 import {
   GestureHandlerRootView,
@@ -9,10 +9,16 @@ import CustomSafeAreaView from '@components/global/CustomSafeAreaView';
 import ProductSlider from '@components/login/ProductSlider';
 import {resetAndNavigate} from '@utils/Navigationutils';
 import {CustomText} from '@components/ui/customText';
-import {Fonts} from '@utils/Constants';
+import {Colors, Fonts, lightColors} from '@utils/Constants';
 import { CustomInput } from '@components/ui/customInput';
 import { CustomButton } from '@components/ui/customButton';
 import useKetboardOffsetHeight from '@components/ui/useKeyboardOffsetHeight';
+import { RFValue } from 'react-native-responsive-fontsize';
+import LinearGradient from 'react-native-linear-gradient';
+import { customerLogin } from '@service/authService';
+
+
+const bottomColors = [...lightColors].reverse()
 
 const CustomerLogin: FC = () => {
 
@@ -26,7 +32,7 @@ const CustomerLogin: FC = () => {
 
   useEffect(() => {
     const toValue = keyboardOffsetHeight === 0 ? 0 : -keyboardOffsetHeight * 0.84;
-    const duration = keyboardOffsetHeight === 0 ? 500 : 1000;
+    const duration = keyboardOffsetHeight === 0 ? 500 : 400;
 
     Animated.timing(animatedValue, {
         toValue,
@@ -36,8 +42,19 @@ const CustomerLogin: FC = () => {
 }, [keyboardOffsetHeight]);
 
 
-const handleAuth = ()=>{
+const handleAuth =async ()=>{
+Keyboard.dismiss()
 
+ setLoading(false)
+  try {
+    await customerLogin(phoneNumber)
+    resetAndNavigate('ProductDashboard')
+    console.log(phoneNumber);
+    
+  } catch (error) {
+    Alert.alert('Login Failed')
+    setLoading(true)
+  }
 }
 
 
@@ -72,6 +89,7 @@ const handleAuth = ()=>{
             keyboardDismissMode="on-drag"
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={styles.subContainer}>
+              <LinearGradient colors={bottomColors} style={styles.graident} />
             <View style={[styles.content,]}>
               <Image
                 source={require('@assets/images/vegislogo2.png')}
@@ -98,11 +116,20 @@ const handleAuth = ()=>{
                 inputMode='numeric' right={false}              >
 
               </CustomInput>
-              <CustomButton onPress={()=>{return}} title={'Continue'} disabled={phoneNumber?.length!=10} loading={loading} />
+              <CustomButton onPress={handleAuth} title={'Continue'} disabled={phoneNumber?.length!=10} loading={loading} />
             </View>
           </Animated.ScrollView>
         </PanGestureHandler>
       </CustomSafeAreaView>
+
+<View style={styles.footer}>
+<SafeAreaView>
+  <CustomText fontSize={RFValue(7)}>
+    By Continuing, you agree to our Term of Service & Privacy Policy 
+  </CustomText>
+</SafeAreaView>
+</View>
+
     </GestureHandlerRootView>
   );
 };
@@ -116,7 +143,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 40,
   },
   content: {
     justifyContent: 'center',
@@ -129,12 +156,31 @@ const styles = StyleSheet.create({
     
   },
   logo: {
-    height: 65,
-    width: 65,
+    height: 80,
+    width: 80,
     marginVertical: 15,
   },
   phoneText:{
     marginLeft:10
+  },
+  footer:{
+    borderTopWidth:0.8,
+    width:'100%',
+    borderColor:Colors.border,
+    paddingBottom:10,
+    alignItems:'center',
+    zIndex:22,
+    position:'absolute',
+    justifyContent:'center',
+    bottom:0,
+    textAlign:'center',
+    padding:10
+
+
+  },
+  graident:{
+    paddingTop:60,
+    width:'100%'
   }
 });
 export default CustomerLogin;

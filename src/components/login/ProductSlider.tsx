@@ -46,11 +46,11 @@ const MemoizedRow = React.memo(Row)
 const styles = StyleSheet.create({
     imageContainer:{
         marginTop:10,
-        marginBottom:0,
+        marginBottom:5,
         marginHorizontal:10,
-        width:95,
-        height:105,
-        backgroundColor:'#F5F5F5',
+        width:100,
+        height:110,
+        backgroundColor:'#f1fff1',
         justifyContent:'center',
         alignItems:'center',
         borderRadius:25
