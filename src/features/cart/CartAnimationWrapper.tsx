@@ -38,7 +38,7 @@ const CartAnimationWrapper: FC<CartAnimationWrapperProps> = ({
   const slideUpStyle = {
     transform: [
       {
-        tranlateY: slideAnim.interpolate({
+        translateY: slideAnim.interpolate({
           inputRange: [0, 1],
           outputRange: [100, 0],
         }),
@@ -48,7 +48,7 @@ const CartAnimationWrapper: FC<CartAnimationWrapperProps> = ({
   };
 
   return (
-    <Animated.View style={[hocStyles.cartContainer, slideUpStyle]}>
+    <Animated.View style={[styles.cartContainer, slideUpStyle]}>
       {children}
     </Animated.View>
   );
@@ -56,4 +56,17 @@ const CartAnimationWrapper: FC<CartAnimationWrapperProps> = ({
 
 export default CartAnimationWrapper;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  cartContainer:{
+    position:'absolute',
+    bottom:0,
+    width:'100%',
+    backgroundColor:'#fff',
+    borderTopLeftRadius:10,
+    borderTopRightRadius:10,
+    elevation:10,
+    shadowOffset:{width:1,height:1},
+    shadowOpacity:0.3,
+    shadowRadius:5
+}
+});

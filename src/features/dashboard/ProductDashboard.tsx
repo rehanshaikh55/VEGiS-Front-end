@@ -27,6 +27,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import {Fonts} from '@utils/Constants';
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/Ionicons';
+import withCart from '@features/cart/WithCart';
 const NOTICE_HEIGHT = -(NoticeHeight + 12);
 const ProductDashboard: FC = () => {
   const user = useAuthStore();
@@ -166,4 +167,4 @@ const styles = StyleSheet.create({
     zIndex: 999,
   },
 });
-export default withCollapsibleContext(ProductDashboard);
+export default withCart( withCollapsibleContext(ProductDashboard));
