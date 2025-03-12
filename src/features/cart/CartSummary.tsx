@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
         gap:screenWidth* 0.03
     },
     image:{
-        width:screenWidth * 0.1,
-        height:screenHeight * 0.1,
+        width:screenWidth * 0.15,
+        height:screenHeight * 0.08,
         borderRadius:screenWidth * 0.025,
         borderColor:Colors.border,
         borderWidth:1
