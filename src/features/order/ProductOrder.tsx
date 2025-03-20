@@ -1,4 +1,5 @@
 import {
+  Alert,
   Image,
   Platform,
   ScrollView,
@@ -19,15 +20,41 @@ import {useCartStore} from '@state/cartStore';
 import {useAuthStore} from '@state/authStore';
 import {hocStyles} from 'styles/GlobelStyle.tsx';
 import ArrowButton from './ArrowButton';
+import { createOrder } from '@service/orderService';
+import { navigate } from '@utils/Navigationutils';
 
 const ProductOrder = () => {
   const {getTotalPrice, cart, clearCart} = useCartStore();
   const {user, setCurrentOrder, currentOrder} = useAuthStore();
   const totalItemPrice = getTotalPrice();
-  const [loading,setLoading]=useState();
+  const [loading,setLoading]=useState(false);
   const handlePlaceOrder = async()=>{
-    
-  }
+  //    if(currentOrder !== null){
+  //      Alert.alert('Let your first order to be delivered')
+  //      return
+  //  }
+ const formattedData = cart.map((item)=>({
+     id:item._id,
+     item:item._id,
+     count:item.count
+ }))
+ if(formattedData.length == 0){
+     Alert.alert('Please add items to cart')
+     return
+ }
+setLoading(true)
+const data = await createOrder(formattedData,totalItemPrice)
+if(data != null){
+    setCurrentOrder(data)
+    clearCart()
+    navigate('OrderSuccess',{...data})
+}else{
+  Alert.alert('Something went wrong')
+}
+setLoading(false)
+
+
+}
   return (
     <View style={styles.container}>
       <CustomHeader title="Checkout" />
@@ -108,9 +135,8 @@ const ProductOrder = () => {
                      loading={loading}
                      price={totalItemPrice}
                      title="Place Order"
-                     onPress={async ()=>{
-                      await handlePlaceOrder();
-                     }}
+                     onPress={handlePlaceOrder
+                     }
                      />
             </View>
           </View>

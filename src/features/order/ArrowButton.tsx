@@ -1,7 +1,9 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { FC } from 'react'
 import { Colors, Fonts } from '@utils/Constants';
 import { CustomText } from '@components/ui/customText';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface ArrowButtonProps{
     title:string;
@@ -30,11 +32,37 @@ const ArrowButton:FC<ArrowButtonProps> = ({title,onPress,price,loading}) => {
                     style={{color:'white'}}
                     fontFamily={Fonts.Medium}
                     >
-
+                    ₹{price + 34}.0
+                    </CustomText>
+                    <CustomText 
+                    variant='h9'
+                    style={{color:'white'}}
+                    fontFamily={Fonts.Medium}
+                    >
+                    TOTAL
                     </CustomText>
                 </View>
             )
         }
+        <View style={styles.flexRow}>
+            <CustomText 
+            variant='h6'
+            style={{color:'white'}}
+            fontFamily={Fonts.Medium}
+            >
+            {title}
+            </CustomText>
+            {loading?(
+                <ActivityIndicator 
+                color='white'
+                size='small'
+                style={{marginHorizontal:5}}
+                />
+            ):(
+                <Icon name="arrow-right" size={RFValue(25)} color="white" />
+            )
+        }
+        </View>
     </TouchableOpacity>
   )
 }
