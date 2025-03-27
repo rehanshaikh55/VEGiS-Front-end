@@ -36,15 +36,16 @@ export default OrderItem
 
 const styles = StyleSheet.create({
     img:{
-        height:60,
-        width:60,
+        height:65,
+        width:65,
+        borderRadius:10
 
     },
     imgContainer:{
         backgroundColor:Colors.backgroundSecondary,
         padding:10,
         borderRadius:15,
-        width:'22%'
+        width:'23.2%'
     },
     flexRow:{
         alignItems:'center',

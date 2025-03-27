@@ -28,3 +28,15 @@ export const getOrderbyId = async (id:string) => {
         
     }
 }
+
+
+export const getOrderfromCustomerid = async (id:string) => {
+    try {
+        const response = await appAxios.get(`/order?customerId${id}`)
+        return response.data;
+    } catch (error) {
+        console.log('get order by id error',error);
+        return null;
+        
+    }
+}

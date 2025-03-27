@@ -28,9 +28,12 @@ import {Fonts} from '@utils/Constants';
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/Ionicons';
 import withCart from '@features/cart/WithCart';
+import withLiveStatus from '@features/map/withLiveStatus';
+import { getOrderfromCustomerid } from '@service/orderService';
 const NOTICE_HEIGHT = -(NoticeHeight + 12);
 const ProductDashboard: FC = () => {
   const user = useAuthStore();
+  
   console.log(user);
 
   const {scrollY, expand} = useCollapsibleContext();
@@ -108,7 +111,7 @@ const ProductDashboard: FC = () => {
               <CustomText
                 fontFamily={Fonts.Bold}
                 style={{opacity: 0.2, marginTop: 10, paddingBottom: 70}}>
-                Developed By 💛 Rehan Shaikh
+                Developed By 💛 Rehan Shaikh 
               </CustomText>
               <Animated.View style={styles.backToTopButton}> 
                 <TouchableOpacity
@@ -167,4 +170,4 @@ const styles = StyleSheet.create({
     zIndex: 999,
   },
 });
-export default withCart( withCollapsibleContext(ProductDashboard));
+export default withLiveStatus( withCart( withCollapsibleContext(ProductDashboard)));

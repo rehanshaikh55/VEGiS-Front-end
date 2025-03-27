@@ -29,10 +29,10 @@ const ProductOrder = () => {
   const totalItemPrice = getTotalPrice();
   const [loading,setLoading]=useState(false);
   const handlePlaceOrder = async()=>{
-  //    if(currentOrder !== null){
-  //      Alert.alert('Let your first order to be delivered')
-  //      return
-  //  }
+ //    if(currentOrder !== null){
+ //     Alert.alert('Let your first order to be delivered')
+  //    return
+ //  }
  const formattedData = cart.map((item)=>({
      id:item._id,
      item:item._id,

@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     width: '100%',
     aspectRatio: 1 / 1,
     resizeMode: 'contain',
+    borderRadius: 8,
   },
   content: {
     flex: 1,
