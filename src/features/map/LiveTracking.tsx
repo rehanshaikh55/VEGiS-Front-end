@@ -8,12 +8,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {CustomText} from '@components/ui/customText';
 import OrderSummary from './OrderSummary';
+import DeliveryDetails from './DeliveryDetails';
+import LiveMap from './LiveMap';
 
 const LiveTracking = () => {
   const {currentOrder, setCurrentOrder} = useAuthStore();
 
   const fetchOrderDetails = async () => {
-    const data = await getOrderbyId(currentOrder?.id as any);
+    const data = await getOrderbyId(currentOrder?._id as any);
     setCurrentOrder(data);
   };
   useEffect(() => {
@@ -38,6 +40,15 @@ const LiveTracking = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}>
+         <LiveMap
+         deliveryLocation={currentOrder?.deliveryLocation}
+         pickupLocation={currentOrder?.pickupLocation}
+         deliveryPersonLocation={currentOrder?.deliveryPersonLocation}
+         hasAccepted={currentOrder?.status == 'confirmed'}
+         hasPickedUp={currentOrder?.status == 'arriving'}
+         
+         />
+
         <View style={styles.flexRow}>
           <View style={styles.iconContainer}>
             <Icon
@@ -66,6 +77,7 @@ const LiveTracking = () => {
             </CustomText>
           </View>
         </View>
+        <DeliveryDetails details={currentOrder?.customer} />
           <OrderSummary order={currentOrder} />
         
         <View style={styles.flexRow}>

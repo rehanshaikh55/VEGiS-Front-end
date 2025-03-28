@@ -13,7 +13,7 @@ import {io} from 'socket.io-client';
 const withLiveStatus = <P extends object>(
   WrappedComponent: React.ComponentType<P>,
 ): FC<P> => {
-  const WithLiveStatusComponent: FC<P> = props => {
+  const WithLiveStatusComponent: FC<P> = (props) => {
     const {currentOrder, setCurrentOrder} = useAuthStore();
     const user = useAuthStore();
     const routeName = useNavigationState(
@@ -21,7 +21,7 @@ const withLiveStatus = <P extends object>(
     );
     
     const fetchOrderDetails = async () => {
-      const data = await getOrderbyId(currentOrder?.id as any);
+      const data = await getOrderbyId(currentOrder?._id as any);
       setCurrentOrder(data);
     };
     useEffect(() => {
@@ -30,12 +30,12 @@ const withLiveStatus = <P extends object>(
           transports: ['websocket'],
           withCredentials: true,
         });
-        socketInstance.emit('joinRoom', currentOrder?.id);
-        socketInstance?.on('liveTrackingUpdate', updatedOrder => {
+        socketInstance.emit('joinRoom', currentOrder?._id);
+        socketInstance?.on('liveTrackingUpdates', (updatedOrder) => {
           fetchOrderDetails();
           console.log('recieved live tracking update', updatedOrder);
         });
-        socketInstance.on('orderConfirmed', confirmOrder => {
+        socketInstance.on('orderConfirmed', (confirmOrder) => {
           fetchOrderDetails();
           console.log('recieved order confirmed', confirmOrder);
         });

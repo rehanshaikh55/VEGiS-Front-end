@@ -1,24 +1,45 @@
-import { useState, useEffect } from 'react';
-import { Keyboard, Platform } from 'react-native';
+import {useEffect, useState} from 'react';
+import {Keyboard} from 'react-native';
 
 export default function useKeyboardOffsetHeight() {
-    const [keyboardOffsetHeight, setKeyboardOffsetHeight] = useState(0);
+  const [keyboardOffsetHeight, setKeyboardOffsetHeight] = useState(0);
 
-    useEffect(() => {
-        const showEvent = Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow';
-        const hideEvent = Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide';
+  useEffect(() => {
+    const keyboardWillAndroidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      e => {
+        setKeyboardOffsetHeight(e.endCoordinates.height);
+      },
+    );
 
-        const onKeyboardShow = (e:any) => setKeyboardOffsetHeight(e.endCoordinates.height);
-        const onKeyboardHide = () => setKeyboardOffsetHeight(0);
+    const keyboardWillAndroidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      e => {
+        setKeyboardOffsetHeight(0);
+      },
+    );
 
-        const showListener = Keyboard.addListener(showEvent, onKeyboardShow);
-        const hideListener = Keyboard.addListener(hideEvent, onKeyboardHide);
+    const keyboardWillShowListener = Keyboard.addListener(
+      'keyboardWillShow',
+      e => {
+        setKeyboardOffsetHeight(e.endCoordinates.height);
+      },
+    );
 
-        return () => {
-            showListener.remove();
-            hideListener.remove();
-        };
-    }, []);
+    const keyboardWillHideListener = Keyboard.addListener(
+      'keyboardWillHide',
+      e => {
+        setKeyboardOffsetHeight(e.endCoordinates.height);
+      },
+    );
 
-    return keyboardOffsetHeight;
+    return () => {
+      keyboardWillAndroidHideListener.remove();
+      keyboardWillAndroidShowListener.remove();
+      keyboardWillHideListener.remove();
+      keyboardWillShowListener.remove();
+    };
+  }, []);
+
+  return keyboardOffsetHeight;
 }

@@ -1,13 +1,13 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import React, {FC} from 'react';
 import {Colors, Fonts} from '@utils/Constants';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {CustomText} from '@components/ui/customText';
-import { useAuthStore } from '@state/authStore';
+import {useAuthStore} from '@state/authStore';
+import BillDetails from '@features/order/BillDetails';
 
 const OrderSummary: FC<{order: any}> = ({order}) => {
- 
   const totalPrice =
     order?.items?.reduce(
       (total: number, cartItem: any) =>
@@ -23,16 +23,50 @@ const OrderSummary: FC<{order: any}> = ({order}) => {
             color={Colors.disabled}
             size={RFValue(20)}
           />
-          <View>
-            <CustomText variant="h7" fontFamily={Fonts.SemiBold}>
-               Order Summary
-            </CustomText>
-            <CustomText variant="h9" fontFamily={Fonts.Medium}>
-               Order ID - #{order.orderId}
-            </CustomText>
-          </View>
+        </View>
+        <View>
+          <CustomText variant="h7" fontFamily={Fonts.SemiBold}>
+            Order Summary
+          </CustomText>
+          <CustomText variant="h9" fontFamily={Fonts.Medium}>
+            Order ID - #{order?.orderId}
+          </CustomText>
         </View>
       </View>
+
+      {order?.items?.map((item: any, index: number) => {
+        return (
+          <View style={styles.flexRow} key={index}>
+            <View style={styles.imgContainer}>
+              <Image source={{uri: item?.item?.image}} style={styles.img} />
+            </View>
+            <View style={{width: '55%'}}>
+              <CustomText
+                variant="h8"
+                fontFamily={Fonts.Medium}
+                numberOfLines={2}>
+                {item?.item?.name}
+              </CustomText>
+              <CustomText variant="h9">{item.item.quantity}</CustomText>
+            </View>
+            <View style={{width: '20%', alignItems: 'flex-end'}}>
+              <CustomText
+                variant="h8"
+                fontFamily={Fonts.Medium}
+                style={{alignSelf: 'flex-end', marginTop: 4}}>
+                ₹{item.count * item.item.price}
+              </CustomText>
+              <CustomText
+                variant="h8"
+                fontFamily={Fonts.Medium}
+                style={{alignSelf: 'flex-end', marginTop: 4}}>
+                {item.count}x 
+              </CustomText>
+            </View>
+          </View>
+        );
+      })}
+      <BillDetails totalItemPrice={totalPrice} />
     </View>
   );
 };
