@@ -17,7 +17,10 @@ const MapViewComponent = ({
  
 
   return (
-    /*
+    
+  
+ <View>
+{/*    
    <MapView
    ref={setMapRef}
    style={{flex:1}}
@@ -41,9 +44,7 @@ const MapViewComponent = ({
      deliveryLocation={deliveryLocation}
      pickupLocation={pickupLocation}
     />
-     </MapView>
-  */
- <View>
+     </MapView> */}
      <Image
       source={{uri:"https://res.cloudinary.com/dycdei95h/image/upload/v1743147875/Screenshot_2025-03-28_131337_oodnlq.png"}}
       style={{width:'100%',height:'100%',}}

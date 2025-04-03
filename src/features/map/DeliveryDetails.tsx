@@ -41,7 +41,7 @@ const DeliveryDetails:FC<{details:any}> = ({details}) => {
         </View>
         <View style={{width: '80%'}}>
          
-          <CustomText variant="h8" numberOfLines={2} fontFamily={Fonts.Regular}>
+          <CustomText variant="h8" numberOfLines={2} fontFamily={Fonts.Medium}>
              {details?.name || '---'} {details?.phone || 'XXXXXXXXX'}
           </CustomText>
           <CustomText variant="h8" numberOfLines={2} fontFamily={Fonts.Regular}>

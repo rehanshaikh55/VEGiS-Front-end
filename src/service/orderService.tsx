@@ -40,3 +40,15 @@ export const getOrderfromCustomerid = async (id:string) => {
         
     }
 }
+
+
+
+export const fetchCustomerOrders = async(userId:string)=>{
+    try {
+        const response = await appAxios.get(`/order?customerId=${userId}`);
+        return response.data;
+    } catch (error) {
+        console.log("fetch customer order error",error );
+        return null;
+    }
+}

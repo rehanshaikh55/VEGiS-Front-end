@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+    backgroundColor:'#fff'
   },
   lottieView: {
     width: screenWidth * 0.6,

@@ -5,6 +5,7 @@ import {Fonts} from '@utils/Constants';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {useAuthStore} from '@state/authStore';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { navigate } from '@utils/Navigationutils';
 
 const Header: FC<{showNotice: () => void}> = ({showNotice}) => {
   const {setUser, user} = useAuthStore();
@@ -50,7 +51,9 @@ const Header: FC<{showNotice: () => void}> = ({showNotice}) => {
       </TouchableOpacity>
 
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>{
+        navigate("Profile")
+      }}>
         <Icon name='account-circle-outline' color='#fff' size={RFValue(35)} />
       </TouchableOpacity>
     </View>
