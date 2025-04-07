@@ -1,9 +1,14 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { FC } from 'react'
-import { Colors } from '@utils/Constants'
+import { Colors, Fonts } from '@utils/Constants'
 import { CustomText } from '@components/ui/customText';
+import  Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
+import { resetAndNavigate } from '@utils/Navigationutils';
+import { storage, tokenStorage } from '@state/Storage';
+import { useAuthStore } from '@state/authStore';
 
 const DeliveryHeader:FC<{name:string;email:string}> = ({name,email}) => {
+    const {logout} = useAuthStore();
   return (
     <View style={styles.flexRow}>
         <View style={styles.imgContainer}>
@@ -12,11 +17,26 @@ const DeliveryHeader:FC<{name:string;email:string}> = ({name,email}) => {
             />
       </View>
       <View style={styles.infoContainer}>
-        <CustomText>
-            
+        <CustomText variant='h4' fontFamily={Fonts.SemiBold}>
+            Hello! {name}
+        </CustomText>
+        <CustomText variant='h8' fontFamily={Fonts.Medium
+        }>
+             {email}
         </CustomText>
         
         </View>
+        <TouchableOpacity
+        onPress={()=>{
+            resetAndNavigate('CustomerLogin');
+            logout();
+            tokenStorage.clearAll();
+            storage.clearAll();
+
+        }}
+        >
+            <Icon name='logout' size={30} color='black' />
+        </TouchableOpacity>
     </View>
   )
 }

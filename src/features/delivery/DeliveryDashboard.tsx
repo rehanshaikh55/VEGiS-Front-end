@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {Colors} from '@utils/Constants';
 import DeliveryHeader from './DeliveryHeader';
 import {useAuthStore} from '@state/authStore';
+import TabBar from './TabBar';
 
 const DeliveryDashboard = () => {
   const {user, setUser} = useAuthStore();
@@ -18,6 +19,9 @@ const DeliveryDashboard = () => {
       <SafeAreaView>
         <DeliveryHeader name={user?.name} email={user?.email} />
       </SafeAreaView>
+      <View style={styles.subContainer}>
+              <TabBar selectedTab={selectedTab} onTabChange={setSelectedTab}  />
+      </View>
     </View>
   );
 };
