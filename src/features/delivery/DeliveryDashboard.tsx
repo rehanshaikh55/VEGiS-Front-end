@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView, FlatList, RefreshControl, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Colors} from '@utils/Constants';
 import DeliveryHeader from './DeliveryHeader';
@@ -6,6 +6,9 @@ import {useAuthStore} from '@state/authStore';
 import TabBar from './TabBar';
 import Geolocation from '@react-native-community/geolocation';
 import { fetchOrders } from '@service/orderService';
+import DeliveryOrderItem from './DeliveryOrderItem';
+import { CustomText } from '@components/ui/customText';
+
 
 const DeliveryDashboard = () => {
   const {user, setUser} = useAuthStore();
@@ -47,8 +50,16 @@ const DeliveryDashboard = () => {
    setLoading(false);
 
   }
+  useEffect(() => {
+    fetchData();
+  },[]);
 
 
+  const renderOrderItem = ({item,index}: any) => {
+    return(
+      <DeliveryOrderItem item={item} index={index} />
+    )
+  }
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -56,6 +67,34 @@ const DeliveryDashboard = () => {
       </SafeAreaView>
       <View style={styles.subContainer}>
               <TabBar selectedTab={selectedTab} onTabChange={setSelectedTab}  />
+      <FlatList
+      data={data}
+      refreshControl={
+        <RefreshControl 
+        refreshing={refreshing}
+        onRefresh={async()=>await fetchData}
+        />
+      }
+      ListEmptyComponent={()=>{
+        if(loading){
+            return(
+              <View style={styles.center}>
+                <ActivityIndicator color={Colors.secondary} size="small" />
+              </View>
+            )
+        }
+        return(
+          <View style={styles.center}>
+           <CustomText >
+           
+           </CustomText>
+          </View>
+        )
+      }}
+      renderItem={renderOrderItem}
+      keyExtractor={item=> item.orderId}
+      contentContainerStyle={styles.flatlistContainer}
+      />
       </View>
     </View>
   );
