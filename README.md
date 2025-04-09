@@ -3,7 +3,7 @@ For better formatting, here’s a refined version with spacing and structure tha
 ---
  
 # VEGiS - Your Grocery Delivery Solution 🥕🍎
-[📲 **Download APK**](https://your-apk-link.com) — Try VEGiS now on your Android device!
+[📲 **Download APK**](https://limewire.com/d/uC8Yo#th9FUYguFN) — Try VEGiS now on your Android device!
 
 **VEGiS** is a fast, convenient grocery delivery app built for seamless shopping on the go! Inspired by Blinkit, VEGiS brings groceries right to your doorstep, with features designed to make your shopping experience smooth and easy.
 
