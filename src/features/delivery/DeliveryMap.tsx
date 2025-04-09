@@ -30,7 +30,7 @@ const DeliveryMap = () => {
 
   const fetchOrderDetails = async () => {
     const data = await getOrderbyId(orderDetails?._id as any);
-    console.log("dataaa",data);
+    
     
     setOrderData(data);
   };
