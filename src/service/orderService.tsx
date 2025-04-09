@@ -82,7 +82,7 @@ export const sendLiveOrderUpdates = async (
   status: string,
 ) => {
   try {
-    const response = await appAxios.post(`/order/${id}/status`, {
+    const response = await appAxios.patch(`/order/${id}/status`, {
       deliveryPersonLocation: location,
       status,
     });

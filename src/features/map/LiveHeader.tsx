@@ -6,7 +6,7 @@ import { navigate } from '@utils/Navigationutils';
 import  Icon  from 'react-native-vector-icons/Ionicons';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { CustomText } from '@components/ui/customText';
-import { Fonts } from '@utils/Constants';
+import { Colors, Fonts } from '@utils/Constants';
 
 const LiveHeader:FC<{
     type:'Customer' | 'Delivery';
@@ -24,7 +24,7 @@ const {currentOrder,setCurrentOrder} = useAuthStore()
 
   return (
     <SafeAreaView>
-      <View style={styles.headerContainer}>
+      <View style={[styles.headerContainer,{backgroundColor:isCustomer ? Colors.secondary : Colors.primary}]}>
         <Pressable style={styles.backButton} onPress={()=>{
             if(isCustomer){
                 navigate('ProductDashboard')
