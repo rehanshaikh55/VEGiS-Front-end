@@ -52,7 +52,7 @@ const DeliveryDashboard = () => {
   }
   useEffect(() => {
     fetchData();
-  },[]);
+  },[selectedTab]);
 
 
   const renderOrderItem = ({item,index}: any) => {
@@ -72,7 +72,7 @@ const DeliveryDashboard = () => {
       refreshControl={
         <RefreshControl 
         refreshing={refreshing}
-        onRefresh={async()=>await fetchData}
+        onRefresh={async()=>await fetchData()}
         />
       }
       ListEmptyComponent={()=>{
@@ -86,7 +86,7 @@ const DeliveryDashboard = () => {
         return(
           <View style={styles.center}>
            <CustomText >
-           
+            No orders available
            </CustomText>
           </View>
         )

@@ -13,7 +13,7 @@ const TabBar: FC<tabBarProps> = ({selectedTab, onTabChange}) => {
     <View style={styles.tabContainer}>
       <TouchableOpacity
         activeOpacity={0.8}
-        style={[styles.tab, selectedTab === 'available' && styles.activeTab]}
+        style={[styles.tab, selectedTab == 'available' && styles.activeTab]}
         onPress={() => onTabChange('available')}>
         <CustomText
           variant="h8"
@@ -29,7 +29,7 @@ const TabBar: FC<tabBarProps> = ({selectedTab, onTabChange}) => {
       </TouchableOpacity>
       <TouchableOpacity
       activeOpacity={0.8}
-        style={[styles.tab, selectedTab === 'delivered' && styles.activeTab]}
+        style={[styles.tab, selectedTab != 'available' && styles.activeTab]}
         onPress={() => onTabChange('delivered')}
       >
         <CustomText
