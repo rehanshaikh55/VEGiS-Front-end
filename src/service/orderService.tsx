@@ -64,3 +64,31 @@ export const fetchOrders = async (
      }
 
     };
+export const confirmOrder = async (id: string, location: any) => {
+  try{
+    const response = await appAxios.post(`/order/${id}/confirm`, {
+      deliveryPersonLocation: location,
+    });
+    return response.data;
+  }catch (error) {
+    console.log('confirm order error', error);
+    return null;
+  }
+}
+
+export const sendLiveOrderUpdates = async (
+  id: string,
+  location: any,
+  status: string,
+) => {
+  try {
+    const response = await appAxios.post(`/order/${id}/status`, {
+      deliveryPersonLocation: location,
+      status,
+    });
+    return response.data;
+  } catch (error) {
+    console.log('send live order updates error', error);
+    return null;
+  }
+}
