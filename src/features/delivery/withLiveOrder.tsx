@@ -63,7 +63,7 @@ const withLiveOrder = <P extends object>(
                 style={{width: 20, height: 20}}
                 />
               </View>
-              <View style={{width: '65%'}}>
+              <View style={{width: '62%'}}>
             <CustomText variant='h6' fontFamily={Fonts.SemiBold}>
                 #{currentOrder?.orderId}
             </CustomText>

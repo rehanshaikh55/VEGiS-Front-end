@@ -14,6 +14,7 @@ const ProductList: FC<{data: any}> = ({data}) => {
       data={data}
       keyExtractor={item => item._id}
       renderItem={renderItem}
+      scrollEnabled={true}
       style={styles.container}
       contentContainerStyle={styles.content}
       numColumns={2}
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: '100%',
+    
     backgroundColor: Colors.backgroundSecondary,
   },
   content: {

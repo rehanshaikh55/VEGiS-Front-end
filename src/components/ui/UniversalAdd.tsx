@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {FC} from 'react';
 import {useCartStore} from '@state/cartStore';
 import {Colors, Fonts} from '@utils/Constants';
@@ -16,28 +16,28 @@ const UniversalAdd: FC<{item: any}> = ({item}) => {
         {backgroundColor: count === 0 ? '#fff' : Colors.secondary},
       ]}>
       {count == 0 ? (
-        <Pressable onPress={() => addItem(item)} style={styles.add}>
+        <TouchableOpacity onPress={() => addItem(item)} style={styles.add}>
           <CustomText
             variant="h9"
             fontFamily={Fonts.SemiBold}
             style={styles.addText}>
             ADD
           </CustomText>
-        </Pressable>
+        </TouchableOpacity>
       ) : (
         <View style={styles.counterContainer}>
-          <Pressable onPress={() => removeItem(item._id)}>
-            <Icon name="minus" color="#fff" size={RFValue(13)} />
-          </Pressable>
+          <TouchableOpacity onPress={() => removeItem(item._id)}>
+            <Icon name="minus" color="#fff" size={RFValue(15)} />
+          </TouchableOpacity>
           <CustomText
             fontFamily={Fonts.SemiBold}
             style={styles.text}
             variant="h8">
             {count}
           </CustomText>
-          <Pressable onPress={() => addItem(item)}>
-            <Icon name="plus" color="#fff" size={RFValue(13)} />
-          </Pressable>
+          <TouchableOpacity onPress={() => addItem(item)}>
+            <Icon name="plus" color="#fff" size={RFValue(15)} />
+          </TouchableOpacity>
           
         </View>
       )}
@@ -53,16 +53,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: Colors.secondary,
-    width: 70,
+    width: 77,
     padding:3,
     borderRadius: 8,
   },
   add: {
-    width: '100%',
+    width: '105%',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 4,
-    paddingVertical: 6,
+    paddingHorizontal: 5,
+    paddingVertical: 7,
   },
   addText: {
     color: Colors.secondary,

@@ -1,13 +1,15 @@
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import React, {FC} from 'react';
 import {screenHeight} from '@utils/Scaling';
 import {Colors, Fonts} from '@utils/Constants';
 import {CustomText} from '@components/ui/customText';
 import {RFValue} from 'react-native-responsive-fontsize';
 import UniversalAdd from '@components/ui/UniversalAdd';
+import { useCartStore } from '@state/cartStore';
 
 const ProductItem: FC<{item: any; index: number}> = ({item, index}) => {
   const isSecondColumn = index % 2 != 0;
+   const {addItem, removeItem} = useCartStore();
   return (
     <View style={[styles.container, {marginRight: isSecondColumn ? 10 : 0}]}>
       <View style={styles.imageContainer}>
@@ -43,7 +45,13 @@ const ProductItem: FC<{item: any; index: number}> = ({item, index}) => {
                ₹{item?.discountPrice}  
             </CustomText>
           </View>
+          <TouchableOpacity
+          onPress={() => addItem(item)}
+          >
+            
+
              <UniversalAdd item={item} />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -55,7 +63,7 @@ const styles = StyleSheet.create({
     width: '45%',
     borderRadius: 10,
     backgroundColor: '#fff',
-    marginBottom: 10,
+    marginBottom: 12,
     marginLeft: 10,
     overflow: 'hidden',
   },

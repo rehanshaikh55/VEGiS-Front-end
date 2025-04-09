@@ -21,6 +21,7 @@ const DeliveryDetails:FC<{details:any}> = ({details}) => {
           </CustomText>
         </View>
       </View>
+      
       <View style={styles.flexRow2}>
         <View style={styles.iconContainer}>
           <Icon name="map-marker-outline" color={Colors.disabled} size={RFValue(20)} />

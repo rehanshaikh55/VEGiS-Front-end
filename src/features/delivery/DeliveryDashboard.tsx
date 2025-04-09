@@ -8,6 +8,7 @@ import Geolocation from '@react-native-community/geolocation';
 import { fetchOrders } from '@service/orderService';
 import DeliveryOrderItem from './DeliveryOrderItem';
 import { CustomText } from '@components/ui/customText';
+import withLiveOrder from './withLiveOrder';
 
 
 const DeliveryDashboard = () => {
@@ -100,7 +101,7 @@ const DeliveryDashboard = () => {
   );
 };
 
-export default DeliveryDashboard;
+export default withLiveOrder(DeliveryDashboard) ;
 
 const styles = StyleSheet.create({
   container: {

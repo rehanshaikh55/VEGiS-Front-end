@@ -30,6 +30,8 @@ const DeliveryMap = () => {
 
   const fetchOrderDetails = async () => {
     const data = await getOrderbyId(orderDetails?._id as any);
+    console.log("dataaa",data);
+    
     setOrderData(data);
   };
   useEffect(() => {
@@ -147,6 +149,23 @@ const DeliveryMap = () => {
           hasAccepted={orderData?.status == 'confirmed'}
           hasPickedUp={orderData?.status == 'arriving'}
         />
+        <View style={styles.containerBranch}>
+
+        <View style={styles.flexRow2}>
+                <View style={styles.iconContainer}>
+                  <Icon name="storefront-outline" color={Colors.disabled} size={RFValue(20)} />
+                </View>
+                <View style={{width: '80%'}}>
+                  <CustomText variant="h7" fontFamily={Fonts.SemiBold}>
+                     Pickup Order from this branch
+                  </CustomText>
+                  <CustomText variant="h8" numberOfLines={2} style={{marginTop:2}} fontFamily={Fonts.Regular}>
+                     {orderData?.branch?.name || '-------'} 
+                  </CustomText>
+                  
+                  </View>
+              </View>
+        </View>
         <DeliveryDetails details={orderData?.customer} />
         <OrderSummary order={orderData} />
 
@@ -216,6 +235,14 @@ const DeliveryMap = () => {
 export default DeliveryMap;
 
 const styles = StyleSheet.create({
+  containerBranch: {
+    width: '100%',
+    borderRadius: 15,
+    marginTop:10,
+    marginBottom: 0,
+    paddingVertical: 10,
+    backgroundColor: '#fff',
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.secondary,
@@ -259,5 +286,11 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  flexRow2: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    padding: 10,
   },
 });
