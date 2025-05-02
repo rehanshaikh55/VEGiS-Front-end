@@ -22,12 +22,16 @@ import {hocStyles} from 'styles/GlobelStyle.tsx';
 import ArrowButton from './ArrowButton';
 import {createOrder} from '@service/orderService';
 import {navigate} from '@utils/Navigationutils';
+import RNPickerSelect from 'react-native-picker-select';
+import {Picker} from '@react-native-picker/picker';
 
 const ProductOrder = () => {
   const {getTotalPrice, cart, clearCart} = useCartStore();
   const {user, setCurrentOrder, currentOrder} = useAuthStore();
   const totalItemPrice = getTotalPrice();
   const [loading, setLoading] = useState(false);
+  const [selectedPayment, setSelectedPayment] = useState('Cash on Delivery');
+
   const handlePlaceOrder = async () => {
     //    if(currentOrder !== null){
     //     Alert.alert('Let your first order to be delivered')
@@ -43,6 +47,7 @@ const ProductOrder = () => {
       return;
     }
     setLoading(true);
+   
     const data = await createOrder(formattedData, totalItemPrice);
     if (data != null) {
       setCurrentOrder(data);
@@ -122,12 +127,15 @@ const ProductOrder = () => {
                 PAY USING
               </CustomText>
               <CustomText
-                fontFamily={Fonts.Regular}
-                variant="h9"
-                style={{marginTop: 2}}>
-                Cash on Delivery
-              </CustomText>
+  fontFamily={Fonts.Regular}
+  variant="h7"
+  style={{marginTop: 5}}>
+  Cash on Delivery
+</CustomText>
+
+              
             </View>
+
             <View style={{width: '70%'}}>
               <ArrowButton
                 loading={loading}
@@ -149,6 +157,7 @@ const styles = StyleSheet.create({
   cancelText: {
     marginTop: 4,
     opacity: 0.6,
+
   },
   container: {
     flex: 1,
@@ -177,7 +186,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingLeft: 14,
-    paddingTop: 10,
+    paddingTop: 5,
+    bottom: -10,
   },
   addressContainer: {
     justifyContent: 'space-between',

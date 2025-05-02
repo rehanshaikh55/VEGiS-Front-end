@@ -92,3 +92,15 @@ export const sendLiveOrderUpdates = async (
     return null;
   }
 }
+
+export const createRazorpayOrder = async (amount: number) => {
+  try {
+    const response = await appAxios.post('/payment/razorpay-order', {
+      amount,
+    });
+    return response.data; // this will include order.id, currency, amount, etc.
+  } catch (error) {
+    console.error('Error creating Razorpay order:', error);
+    throw new Error('Failed to create Razorpay order');
+  }
+};
